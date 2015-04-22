@@ -10,6 +10,8 @@ symmetric(fiends).
 symmetric(fling).
 symmetric(lover).
 symmetric(partners_in_crime).
+
+
 roles_relation(killer/victim).
 roles_relation(leader/thug).
 roles_relation(employer/employee).
@@ -51,14 +53,20 @@ generalizes(thug,gang_member).
 generalizes(leader,gang_member).
 generalizes(employee,casino_worker).
 generalizes(employer,casino_worker).
+generalizes(politician,polical_actor).
+generalizes(staffer,polical_actor).
 
 
-conflicing_roles(politician,thug).
+
+conflicting_roles(politician,thug).
 conflicting_roles(politician,employee).
 conflicting_roles(leader,employee).
 conflicting_roles(racer,thug).
 conflicting_roles(sibling,friend).
 conflicting_roles(heist_leader,thug).
+conflicting_roles(heist_leader,employee).
+conflicting_roles(heist_leader,employer).
+conflicting_roles(heist_leader,staffer).
 
 
 contradiction(relationship(X, robber/heist_leader, Y),
@@ -77,18 +85,30 @@ contradiction(relationship(X, staffer/politician, Y),
 	      relationship(X, staffer/politician, Z)) :-
 	Y \= Z.
 	
+contradiction(relationship(X, employee/employer, Y),
+	      relationship(X, employee/employer, Z)) :-
+	Y \= Z.
+	
 need(a_million_dollars_yesterday).
 need(to_pay_off_gambling_debts).
 need(to_relax).
 need(to_get_payback).
 need(get_outa_doge).
+
 need(just_to_win_big).
+implies(needs(C, just_to_win_big),
+	\+role(C, employer)).
+	
 need(the_thrill_of_a_heist).
 need(buy_like_five_islands).
 need(get_my_car_back).
 need(find_the_thrill_of_love).
 need(prove_ones_worth).
+
 need(make_it_big_in_silicon_valley).
+implies(needs(C, make_it_big_in_silicon_valley),
+	\+role(C, politician)).
+
 need(buy_drugs_and_lots_more_drugs).
 
 need(get_back_at_the_boss).
@@ -99,6 +119,15 @@ need(win_next_election).
 implies(needs(C, win_next_election),
 	role(C, politician)).
 	
+need(make_a_legacy).
+implies(needs(C, make_a_legacy),
+	role(C, heist_leader)).
+	
+need(clean_my_record).
+implies(needs(C, clean_my_record),
+	role(C, politician)).
+	
+
 object(silenced_pistol).
 object(large_pistol).
 object(assault_rifle).
@@ -140,10 +169,21 @@ location(in_the_bellagio_fountains_without_clothes).
 location(face_first_in_wynn_buffet).
 location(at_the_gun_store).
 location(golfing_at_vegas_municipal).
+
 location(drag_racing_on_the_strip).
+implies(at(C, drag_racing_on_the_strip),
+	role(C, racer)).
+	
 location(drunk_tank).
+implies(at(C, drunk_tank),
+	\+role(C,politician)).
+
 location(watching_bonneville_salt_flats).
+
 location(drag_racing_on_bonneville_salt_flats).
+implies(at(C, drag_racing_on_bonneville_salt_flats),
+	role(C, racer)).
+	
 location(in_and_out).
 location(airport).
 location(wathing_a_magic_show).
