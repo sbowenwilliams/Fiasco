@@ -14,8 +14,19 @@ roles_relation(killer/victim).
 roles_relation(leader/thug).
 roles_relation(employer/employee).
 roles_relation(heist_leader/robber).
+roles_relation(politician/staffer).
 
-
+symmetric(rival_coworkers).
+implies(relationship(X, rival_coworkers, _),
+	role(X, employee)).
+implies(relationship(_, rival_coworkers, Y),
+	role(Y, employee)).
+	
+symmetric(rival_managers).
+implies(relationship(X, rival_managers, _),
+	role(X, employer)).
+implies(relationship(_, rival_managers, Y),
+	role(Y, employer)).
 
 symmetric(rival_gang_leaders).
 implies(relationship(X, rival_gang_leaders, _),
@@ -38,6 +49,8 @@ implies(relationship(_, past_cell_mates, Y),
 generalizes(sibling,family).
 generalizes(thug,gang_member).
 generalizes(leader,gang_member).
+generalizes(employee,casino_worker).
+generalizes(employer,casino_worker).
 
 
 conflicing_roles(politician,thug).
@@ -48,9 +61,22 @@ conflicting_roles(sibling,friend).
 conflicting_roles(heist_leader,thug).
 
 
+contradiction(relationship(X, robber/heist_leader, Y),
+	      relationship(X, robber/heist_leader, Z)) :-
+	Y \= Z.
 
+contradiction(relationship(X, thug/leader, Y),
+	      relationship(X, thug/leader, Z)) :-
+	Y \= Z.
 
+contradiction(relationship(X, victim/killer, Y),
+	      relationship(X, victim/killer, Z)) :-
+	Y \= Z.
 
+contradiction(relationship(X, staffer/politician, Y),
+	      relationship(X, staffer/politician, Z)) :-
+	Y \= Z.
+	
 need(a_million_dollars_yesterday).
 need(to_pay_off_gambling_debts).
 need(to_relax).
