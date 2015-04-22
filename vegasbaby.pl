@@ -16,6 +16,7 @@ roles_relation(employer/employee).
 roles_relation(heist_leader/robber).
 
 
+
 symmetric(rival_gang_leaders).
 implies(relationship(X, rival_gang_leaders, _),
 	role(X, leader)).
@@ -28,7 +29,11 @@ implies(relationship(X, rival_racers, _),
 implies(relationship(_, rival_racers, Y),
 	role(Y, racer)).
 
-
+symmetric(past_cell_mates).
+implies(relationship(X, past_cell_mates, _),
+	role(X, thug)).
+implies(relationship(_, past_cell_mates, Y),
+	role(Y, thug)).
 
 generalizes(sibling,family).
 generalizes(thug,gang_member).
@@ -41,7 +46,8 @@ conflicting_roles(leader,employee).
 conflicting_roles(racer,thug).
 conflicting_roles(sibling,friend).
 conflicting_roles(heist_leader,thug).
-conflicting_roles()
+
+
 
 
 
