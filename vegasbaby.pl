@@ -40,6 +40,8 @@ conflicting_roles(politician,employee).
 conflicting_roles(leader,employee).
 conflicting_roles(racer,thug).
 conflicting_roles(sibling,friend).
+conflicting_roles(heist_leader,thug).
+conflicting_roles()
 
 
 
