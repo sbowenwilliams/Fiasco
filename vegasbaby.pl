@@ -77,11 +77,11 @@ contradiction(relationship(X, staffer/politician, Y),
 	      relationship(X, staffer/politician, Z)) :-
 	Y \= Z.
 	
-need(a_million_dollars_yesterday).
+need(a_million_bucks_yesterday).
 need(to_pay_off_gambling_debts).
 need(to_relax).
 need(to_get_payback).
-need(get_outa_doge).
+need(get_outa_dodge).
 need(just_to_win_big).
 need(the_thrill_of_a_heist).
 need(buy_like_five_islands).
