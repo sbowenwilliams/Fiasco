@@ -6,41 +6,46 @@
 symmetric(sibling).
 symmetric(associate).
 symmetric(rival).
-symmetric(fiends).
+symmetric(friends).
 symmetric(fling).
 symmetric(lover).
 symmetric(partners_in_crime).
 
+relation(traitor).
 
-roles_relation(killer/victim).
-roles_relation(leader/thug).
-roles_relation(employer/employee).
+roles_relation(hitman/target).
+roles_relation(gang_leader/thug).
+roles_relation(floor_manager/casino_employee).
 roles_relation(heist_leader/robber).
 roles_relation(politician/staffer).
+roles_relation(stalker/stalkee).
+roles_relation(dirty_cop/clean_cop).
+roles_relation(drug_dealer/drug_user).
+roles_relation(black_mailer/politician).
 
 symmetric(rival_coworkers).
 implies(relationship(X, rival_coworkers, _),
-	role(X, employee)).
+	role(X, casino_employee)).
 implies(relationship(_, rival_coworkers, Y),
-	role(Y, employee)).
+	role(Y, casino_employee)).
 	
 symmetric(rival_managers).
 implies(relationship(X, rival_managers, _),
-	role(X, employer)).
+	role(X, floor_manager)).
 implies(relationship(_, rival_managers, Y),
-	role(Y, employer)).
+	role(Y, floor_manager)).
 
 symmetric(rival_gang_leaders).
 implies(relationship(X, rival_gang_leaders, _),
-	role(X, leader)).
+	role(X, gang_leader)).
 implies(relationship(_, rival_gang_leaders, Y),
-	role(Y, leader)).
+	role(Y, gang_leader)).
 
-symmetric(rival_racers).
-implies(relationship(X, rival_racers, _),
-	role(X, racer)).
-implies(relationship(_, rival_racers, Y),
-	role(Y, racer)).
+symmetric(rival_drivers).
+implies(relationship(X, rival_drivers, _),
+	role(X, driver)).
+implies(relationship(_, rival_drivers, Y),
+	role(Y, driver)).
 
 symmetric(past_cell_mates).
 implies(relationship(X, past_cell_mates, _),
@@ -50,59 +55,80 @@ implies(relationship(_, past_cell_mates, Y),
 
 generalizes(sibling,family).
 generalizes(thug,gang_member).
-generalizes(leader,gang_member).
-generalizes(employee,casino_worker).
-generalizes(employer,casino_worker).
+generalizes(gang_leader,gang_member).
+generalizes(casino_employee,casino_worker).
+generalizes(floor_manager,casino_worker).
 generalizes(politician,polical_actor).
 generalizes(staffer,polical_actor).
+generalizes(dirty_cop, gang_member).
 
-conflicting_roles(staffer,employer).
-conflicting_roles(staffer,employee).
-conflicting_roles(politician,employer).
+conflicting_roles(staffer,floor_manager).
+conflicting_roles(staffer,casino_employee).
+conflicting_roles(politician,floor_manager).
 conflicting_roles(politician,thug).
-conflicting_roles(politician,employee).
-conflicting_roles(leader,employee).
-conflicting_roles(racer,thug).
+conflicting_roles(politician,casino_employee).
+conflicting_roles(gang_leader,casino_employee).
+conflicting_roles(driver,thug).
 conflicting_roles(sibling,friend).
 conflicting_roles(heist_leader,thug).
-conflicting_roles(heist_leader,employee).
-conflicting_roles(heist_leader,employer).
+conflicting_roles(heist_leader,casino_employee).
+conflicting_roles(heist_leader,floor_manager).
 conflicting_roles(heist_leader,staffer).
+conflicting_roles(stalker, stalkee).
+conflicting_roles(heist_leader, traitor).
+conflicting_roles(drug_dealer, drug_user).
+conflicting_roles(politician, black_mailer).
+conflicting_roles(politician, drug_dealer).
+conflicting_roles(politician, good_cop).
+conflicting_roles(politician, bad_cop).
+conflicting_roles(politician, hitman).
+conflicting_roles(good_cop, drug_user).
+conflicting_roles(good_cop, drug_dealer).
+conflicting_roles(good_cop, hitman).
+conflicting_roles(good_cop, thug).
+conflicting_roles(good_cop, heist_leader).
+conflicting_roles(good_cop, politician).
+conflicting_roles(staffer, politician).
+
+
 
 
 contradiction(relationship(X, robber/heist_leader, Y),
 	      relationship(X, robber/heist_leader, Z)) :-
 	Y \= Z.
 
-contradiction(relationship(X, thug/leader, Y),
-	      relationship(X, thug/leader, Z)) :-
+contradiction(relationship(X, thug/gang_leader, Y),
+	      relationship(X, thug/gang_leader, Z)) :-
 	Y \= Z.
 
-contradiction(relationship(X, victim/killer, Y),
-	      relationship(X, victim/killer, Z)) :-
+contradiction(relationship(X, target/hitman, Y),
+	      relationship(X, target/hitman, Z)) :-
 	Y \= Z.
 
 contradiction(relationship(X, staffer/politician, Y),
 	      relationship(X, staffer/politician, Z)) :-
 	Y \= Z.
 	
-contradiction(relationship(X, employee/employer, Y),
-	      relationship(X, employee/employer, Z)) :-
+contradiction(relationship(X, casino_employee/floor_manager, Y),
+	      relationship(X, casino_employee/floor_manager, Z)) :-
 	Y \= Z.
 	
 need(a_million_dollars_yesterday).
 need(to_pay_off_gambling_debts).
 need(to_relax).
 need(to_get_payback).
-need(get_outa_doge).
+need(get_outa_dodge).
+need(to_prove_their_love).
 
 need(just_to_win_big).
 implies(needs(C, just_to_win_big),
-	\+role(C, employer)).
+	\+role(C, floor_manager)).
 	
 need(the_thrill_of_a_heist).
 need(buy_like_five_islands).
 need(get_my_car_back).
+implies(needs(C, get_my_car_back),
+	role(C, driver)).
 need(find_the_thrill_of_love).
 need(prove_ones_worth).
 
@@ -111,10 +137,12 @@ implies(needs(C, make_it_big_in_silicon_valley),
 	\+role(C, politician)).
 
 need(buy_drugs_and_lots_more_drugs).
+implies(needs(C, buy_drugs_and_lots_more_drugs),
+	role(C, drug_user)).
 
 need(get_back_at_the_boss).
 implies(needs(C, get_back_at_the_boss),
-	role(C, employee)).
+	role(C, casino_employee)).
 
 need(win_next_election).
 implies(needs(C, win_next_election),
@@ -127,8 +155,11 @@ implies(needs(C, make_a_legacy),
 need(clean_my_record).
 implies(needs(C, clean_my_record),
 	role(C, politician)).
-	
 
+need(to_protect_and_serve).
+implies(need(C, to_protect_and_serve),
+	role(C, good_cop)).
+	
 object(silenced_pistol).
 object(large_pistol).
 object(assault_rifle).
@@ -152,6 +183,22 @@ object(valet_ticket).
 object(torches).
 object(bottle_service_at_the_encore).
 object(secret_stash_of_fake_drugs).
+object(pipe_wrench).
+object(beer).
+object(colt45).
+object(black_tar_heroin).
+object(dirty_underwear).
+object(sex_toy).
+object(smoke_bomb).
+object(walkie_talkie).
+object(samurai_sword).
+object(lockpick).
+object(earthquake_machine).
+object(drill).
+object(scorpion_jacket).
+implies(role(C, driver),
+	object(C,scorpion_jacket)).
+
 
 location(feeding_the_lions_at_the_mgm).
 location(why_am_in_mesquite).
@@ -168,22 +215,28 @@ location(downtown_vegas_looking_at_the_lazer_show).
 location(las_vegas_motor_speedway).
 location(in_the_bellagio_fountains_without_clothes).
 location(face_first_in_wynn_buffet).
-location(at_the_gun_store).
+location(the_gun_store).
 location(golfing_at_vegas_municipal).
+location(casino_safe).
+location(funeral).
+location(mens_room).
+location(ladies_room).
 
 location(drag_racing_on_the_strip).
 implies(at(C, drag_racing_on_the_strip),
-	role(C, racer)).
+	role(C, driver)).
 	
 location(drunk_tank).
 implies(at(C, drunk_tank),
 	\+role(C,politician)).
+implies(at(C, drunk_tank),
+	\+role(C, good_cop)).
 
 location(watching_bonneville_salt_flats).
 
 location(drag_racing_on_bonneville_salt_flats).
 implies(at(C, drag_racing_on_bonneville_salt_flats),
-	role(C, racer)).
+	role(C, driver)).
 	
 location(in_and_out).
 location(airport).
