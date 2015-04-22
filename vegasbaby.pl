@@ -3,23 +3,18 @@
 	   implies/2, conflicting_roles/2, generalization/2,
 	   contradiction/2)).
 
-relation(sibling).
-relation(parent).
-relation(child).
-relation(lover).
-relation(killer).
-relation(victim).
-relation(rival).
-relation(fling).
-relation(associate).
-relation(competitor).
-relation(friends).
-relation(employer).
-relation(employee).
-relation(leader).
-relation(thug).
+symmetric(sibling).
+symmetric(associate).
+symmetric(rival).
+symmetric(fiends).
+symmetric(fling).
+symmetric(lover).
+symmetric(partners_in_crime).
+roles_relation(killer/victim).
+roles_relation(leader/thug).
+roles_relation(employer/employee).
+roles_relation(heist_leader/robber).
 
-conflicting_roles(parent,child).
 
 symmetric(rival_gang_leaders).
 implies(relationship(X, rival_gang_leaders, _),
@@ -29,22 +24,22 @@ implies(relationship(_, rival_gang_leaders, Y),
 
 symmetric(rival_racers).
 implies(relationship(X, rival_racers, _),
-	role(X, racers)).
+	role(X, racer)).
 implies(relationship(_, rival_racers, Y),
-	role(Y, racers)).
-	
-	
-symmetric(sibling).
-symmetric(associates).
-symmetric(rival).
-symmetric(competitor).
-symmetric(fiends).
-symmetric(fling).
+	role(Y, racer)).
 
-roles_relation(parent/child).
-roles_relation(killer/victim).
-roles_relation(leader/thug).
-roles_relation(employer/employee).
+
+
+generalizes(sibling,family).
+generalizes(thug,gang_member).
+generalizes(leader,gang_member).
+
+
+conflicing_roles(politician,thug).
+conflicting_roles(politician,employee).
+conflicting_roles(leader,employee).
+conflicting_roles(racer,thug).
+conflicting_roles(sibling,friend).
 
 
 
@@ -66,6 +61,10 @@ need(get_back_at_the_boss).
 implies(needs(C, get_back_at_the_boss),
 	role(C, employee)).
 
+need(win_next_election).
+implies(needs(C, win_next_election),
+	role(C, politician)).
+	
 object(silenced_pistol).
 object(large_pistol).
 object(assault_rifle).
