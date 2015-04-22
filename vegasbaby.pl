@@ -21,7 +21,19 @@ relation(thug).
 
 conflicting_roles(parent,child).
 
+symmetric(rival_gang_leaders).
+implies(relationship(X, rival_gang_leaders, _),
+	role(X, leader)).
+implies(relationship(_, rival_gang_leaders, Y),
+	role(Y, leader)).
 
+symmetric(rival_racers).
+implies(relationship(X, rival_racers, _),
+	role(X, racers)).
+implies(relationship(_, rival_racers, Y),
+	role(Y, racers)).
+	
+	
 symmetric(sibling).
 symmetric(associates).
 symmetric(rival).
@@ -35,13 +47,24 @@ roles_relation(leader/thug).
 roles_relation(employer/employee).
 
 
-need(a_million_dollars).
+
+need(a_million_dollars_yesterday).
 need(to_pay_off_gambling_debts).
 need(to_relax).
 need(to_get_payback).
 need(get_outa_doge).
 need(just_to_win_big).
+need(the_thrill_of_a_heist).
+need(buy_like_five_islands).
+need(get_my_car_back).
+need(find_the_thrill_of_love).
+need(prove_ones_worth).
+need(make_it_big_in_silicon_valley).
+need(buy_drugs_and_lots_more_drugs).
 
+need(get_back_at_the_boss).
+implies(needs(C, get_back_at_the_boss),
+	role(C, employee)).
 
 object(silenced_pistol).
 object(large_pistol).
@@ -54,6 +77,18 @@ object(keycard).
 object(lots_of_rope).
 object(empty_briefcase).
 object(car_keys).
+object(covert_listening_devices_or_bugs).
+object(wedding_rings).
+object(a_magic_hat).
+object(roys_tiger).
+object(a_few_numbers_on_a_cocktail_napkin).
+object(hacksaw).
+object(buzzsaw).
+object(drag_racer).
+object(valet_ticket).
+object(torches).
+object(bottle_service_at_the_encore).
+object(secret_stash_of_fake_drugs).
 
 location(feeding_the_lions_at_the_mgm).
 location(why_am_in_mesquite).
@@ -78,4 +113,5 @@ location(watching_bonneville_salt_flats).
 location(drag_racing_on_bonneville_salt_flats).
 location(in_and_out).
 location(airport).
+location(wathing_a_magic_show).
 location(fabulous_las_vegas_sign).
