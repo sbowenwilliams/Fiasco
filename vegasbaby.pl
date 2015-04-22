@@ -56,8 +56,9 @@ generalizes(employer,casino_worker).
 generalizes(politician,polical_actor).
 generalizes(staffer,polical_actor).
 
-
-
+conflicting_roles(staffer,employer).
+conflicting_roles(staffer,employee).
+conflicting_roles(politician,employer).
 conflicting_roles(politician,thug).
 conflicting_roles(politician,employee).
 conflicting_roles(leader,employee).
