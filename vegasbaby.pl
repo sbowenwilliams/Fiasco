@@ -1,3 +1,5 @@
+%% Sean Bowen-Williams, Brian Tang, Asher Rieck, Aaron Karp
+
 :- export((need/1, relationship/3, location/1, object/1,
 	   relation/1, roles_relation/1, symmetric/1,
 	   implies/2, conflicting_roles/2, generalization/2,
@@ -159,6 +161,8 @@ implies(needs(C, clean_my_record),
 need(to_protect_and_serve).
 implies(need(C, to_protect_and_serve),
 	role(C, good_cop)).
+
+need(peace_and_quiet).
 	
 object(silenced_pistol).
 object(large_pistol).
